@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="background_general_color">#f4f4f4</color>    
-    <color name="timeline_title_text">#000000</color>
+    <color name="timeline_title_text">#CC000000</color>
     
     
 </resources>
