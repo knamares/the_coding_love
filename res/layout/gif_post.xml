@@ -1,0 +1,40 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayoutGifPost"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/half_general_padding"
+    android:background="@color/background_gif_post" >
+
+    <TextView
+        android:id="@+id/textViewGifPostTitle"
+        style="@style/TimeLineTitleGifPost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:text="when coworkers need my help on friday night" />
+
+    <ImageView
+        android:id="@+id/imageViewGifPostTimeLineHeadLogo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewGifPostTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/head_logo" />
+
+    <TextView
+        android:id="@+id/textViewGifPostUsername"
+        style="@style/TimeLineBaseText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageViewGifPostTimeLineHeadLogo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:text="/* by pedro naves */" />
+
+</RelativeLayout>

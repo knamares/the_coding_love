@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background_general_color">#f4f4f4</color>    
+    <color name="background_gif_post">#ffffff</color>    
+    <color name="background_gif_post_shadow">#aaaaaa</color>
+    <color name="background_gif_post_grey">#eeeeee</color>
+    <color name="background_general">#f4f4f4</color>
     <color name="timeline_title_text">#CC000000</color>
     
     
