@@ -4,5 +4,8 @@
     <string name="app_name">the_coding_love();</string>
     <string name="action_settings">Settings</string>
     <string name="timeline_title">the_coding_love();</string>
+    <string name="_by_1_">/* by %1 */</string>
+    <string name="timeline_head_logo">TimeLine Head Logo</string>
+    <string name="postimage">PostImage</string>
 
 </resources>

@@ -1,47 +1,6 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scrollViewTimeLine"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <ImageView
-            android:id="@+id/imageViewTimeLineHeadLogo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:contentDescription="TimeLine Head Logo"
-            android:src="@drawable/head_logo" />
-
-        <TextView
-            android:id="@+id/textViewTimeLineTitle"
-            style="@style/TimeLineTitleText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/imageViewTimeLineHeadLogo"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="12dp"
-            android:text="@string/timeline_title" />
-
-        <LinearLayout
-            android:id="@+id/linearLayoutScroll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewTimeLineTitle"
-            android:padding="@dimen/general_padding"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/textViewTimeLine"
-                style="@style/TimeLineTitleGifPost"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="vertical" />
-            
-        </LinearLayout>
-    </RelativeLayout>
-
-</ScrollView>
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/listviewTimeLine"
+    style="@style/TimeLineListView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />

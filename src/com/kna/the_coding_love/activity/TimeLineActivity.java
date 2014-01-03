@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.view.View.OnFocusChangeListener;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.kna.the_coding_love.R;
+import com.kna.the_coding_love.adapter.GifPostAdapter;
 import com.kna.the_coding_love.interfaze.OnResponseGetGifPost;
 import com.kna.the_coding_love.model.GifPost;
 import com.kna.the_coding_love.net.NetManager;
@@ -20,25 +22,51 @@ public class TimeLineActivity extends Activity implements OnResponseGetGifPost {
 
 	private String LOG_TAG = "----->TimeLineActivity";
 
-	private TextView textView;
-
-	private LinearLayout linearLayoutScroll;
+	private ListView listViewTimeLine;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_time_line);
 
-		textView = (TextView) findViewById(R.id.textViewTimeLine);
-		linearLayoutScroll = (LinearLayout) findViewById(R.id.linearLayoutScroll);
+		listViewTimeLine = (ListView) findViewById(R.id.listviewTimeLine);
+
+		setBinders();
 
 		// Make request
 		NetManager.getInstance(this).getGifPost(this);
 
-		for (int i = 0; i < 5; i++) {
-			RelativeLayout viewGifPost = (RelativeLayout) getLayoutInflater().inflate(R.layout.gif_post, null);
-			linearLayoutScroll.addView(viewGifPost);
-		}
+		// TODO: parse data
+
+		ArrayList<GifPost> gifPosts = new ArrayList<GifPost>() {
+			private static final long serialVersionUID = 1L;
+			{
+				add(new GifPost("Title " + 1, "Image " + 1, "Username " + 1, "email" + 1 + "@email.com"));
+				add(new GifPost("Title " + 2, "Image " + 2, "Username " + 2, "email" + 2 + "@email.com"));
+				add(new GifPost("Title " + 3, "Image " + 3, "Username " + 3, "email" + 3 + "@email.com"));
+				add(new GifPost("Title " + 4, "Image " + 4, "Username " + 4, "email" + 4 + "@email.com"));
+				add(new GifPost("Title " + 5, "Image " + 5, "Username " + 5, "email" + 5 + "@email.com"));
+			}
+		};
+
+		GifPostAdapter gifPostAdapter = new GifPostAdapter(this, gifPosts);
+		listViewTimeLine.setAdapter(gifPostAdapter);
+
+	}
+
+	private void setBinders() {
+		listViewTimeLine.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+				if(position == 0) return;
+				
+				GifPost item = (GifPost) parent.getItemAtPosition(position);
+				Toast.makeText(TimeLineActivity.this, "Click Item: " + position + " || Text: " + item.getTitle(),
+						Toast.LENGTH_LONG).show();
+			}
+
+		});
 	}
 
 	@Override

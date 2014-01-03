@@ -2,39 +2,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayoutGifPost"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/half_general_padding"
-    android:background="@color/background_gif_post" >
+    android:layout_height="wrap_content" >
 
-    <TextView
-        android:id="@+id/textViewGifPostTitle"
-        style="@style/TimeLineTitleGifPost"
+    <RelativeLayout
+        android:id="@+id/mirelative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
-        android:gravity="center"
-        android:text="when coworkers need my help on friday night" />
+        android:background="@drawable/list_item_selector"
+        android:paddingBottom="@dimen/bottom_padding_gif_post"
+        android:paddingLeft="@dimen/half_general_padding"
+        android:paddingRight="@dimen/half_general_padding"
+        android:paddingTop="@dimen/half_general_padding" >
 
-    <ImageView
-        android:id="@+id/imageViewGifPostTimeLineHeadLogo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewGifPostTitle"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
-        android:src="@drawable/head_logo" />
+        <TextView
+            android:id="@+id/textViewGifPostTitle"
+            style="@style/TimeLineTitleGifPost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
+            android:duplicateParentState="false"
+            android:gravity="center"
+            android:text="" />
 
-    <TextView
-        android:id="@+id/textViewGifPostUsername"
-        style="@style/TimeLineBaseText"
-        android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/imageViewGifPostTimeLineHeadLogo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewGifPostTitle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
+            android:contentDescription="@string/postimage"
+            android:duplicateParentState="false"
+            android:src="@drawable/head_logo" />
+
+        <TextView
+            android:id="@+id/textViewGifPostUsername"
+            style="@style/TimeLineBaseText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageViewGifPostTimeLineHeadLogo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="12dp"
+            android:duplicateParentState="false"
+            android:gravity="center"
+            android:text="@string/_by_1_" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageViewGifPostTimeLineHeadLogo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
-        android:gravity="center"
-        android:text="/* by pedro naves */" />
+        android:layout_alignBottom="@+id/mirelative"
+        android:layout_alignLeft="@+id/mirelative"
+        android:layout_alignRight="@+id/mirelative"
+        android:layout_alignTop="@+id/mirelative"
+        android:background="@drawable/list_item_selector_transparent" >
+    </RelativeLayout>
 
 </RelativeLayout>

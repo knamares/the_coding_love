@@ -2,7 +2,7 @@ package com.kna.the_coding_love.model;
 
 public class GifPost {
 
-	private String text;
+	private String title;
 	private String imageUrl;
 	private String username;
 	private String email;
@@ -11,20 +11,20 @@ public class GifPost {
 		super();
 	}
 
-	public GifPost(String text, String imageUrl, String username, String email) {
+	public GifPost(String title, String imageUrl, String username, String email) {
 		super();
-		this.text = text;
+		this.title = title;
 		this.imageUrl = imageUrl;
 		this.username = username;
 		this.email = email;
 	}
 
-	public String getText() {
-		return text;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setText(String text) {
-		this.text = text;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getImageUrl() {
