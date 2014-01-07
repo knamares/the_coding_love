@@ -31,11 +31,11 @@
     </style>
 
     <style name="TimeLineTitleText" parent="@style/TimeLineBaseText">
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="TimeLineTitleGifPost" parent="@style/TimeLineBaseText">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="TimeLineListView" parent="@android:style/Widget.ListView">

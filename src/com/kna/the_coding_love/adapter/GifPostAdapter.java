@@ -3,22 +3,27 @@ package com.kna.the_coding_love.adapter;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kna.the_coding_love.R;
+import com.kna.the_coding_love.interfaze.OnResponseGetImageUrl;
 import com.kna.the_coding_love.model.GifPost;
+import com.kna.the_coding_love.net.NetManager;
 
 public class GifPostAdapter extends ArrayAdapter<GifPost> {
 
-	private final Activity context;
-	private final ArrayList<GifPost> gifPosts;
+	private String LOG_TAG = "----->TimeLineActivity";
 
-	private String comment;
+	private final Activity activity;
+	private final ArrayList<GifPost> gifPosts;
 
 	private LayoutInflater layoutInflater;
 
@@ -30,16 +35,15 @@ public class GifPostAdapter extends ArrayAdapter<GifPost> {
 		public TextView title;
 		public ImageView image;
 		public TextView username;
+		public ProgressBar progressBarImageLoader;
 	}
 
-	public GifPostAdapter(Activity context, ArrayList<GifPost> gifPosts) {
-		super(context, R.layout.gif_post, gifPosts);
-		this.context = context;
+	public GifPostAdapter(Activity activity, ArrayList<GifPost> gifPosts) {
+		super(activity, R.layout.gif_post, gifPosts);
 		this.gifPosts = gifPosts;
+		this.activity = activity;
 
-		comment = context.getResources().getString(R.string._by_1_);
-
-		layoutInflater = context.getLayoutInflater();
+		layoutInflater = activity.getLayoutInflater();
 
 	}
 
@@ -51,7 +55,7 @@ public class GifPostAdapter extends ArrayAdapter<GifPost> {
 				convertView = layoutInflater.inflate(R.layout.gif_post_header, null);
 			}
 		} else {
-			ViewHolder holder = null;
+			final ViewHolder holder;
 
 			// check if this view contained a header
 			if (convertView == null || convertView.findViewById(R.id.relativeLayoutGifPostHeader) != null) {
@@ -61,42 +65,53 @@ public class GifPostAdapter extends ArrayAdapter<GifPost> {
 				holder.title = (TextView) convertView.findViewById(R.id.textViewGifPostTitle);
 				holder.image = (ImageView) convertView.findViewById(R.id.imageViewGifPostTimeLineHeadLogo);
 				holder.username = (TextView) convertView.findViewById(R.id.textViewGifPostUsername);
+				holder.progressBarImageLoader = (ProgressBar) convertView.findViewById(R.id.progressBarImageLoader);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
 			GifPost gifPost = gifPosts.get(position);
 			holder.title.setText(gifPost.getTitle());
-			// TODO: load image
-			holder.image.setImageResource(R.drawable.head_logo);
-			holder.username.setText(comment.replace("%1", gifPost.getUsername()));
+			holder.progressBarImageLoader.setVisibility(View.VISIBLE);
+			holder.image.setImageDrawable(getContext().getResources().getDrawable(R.drawable.gif_post_default));
+			
+			// Load image
+			NetManager.getInstance(activity).getImageFromUrl(gifPost.getImageUrl(), new OnResponseGetImageUrl() {
+
+				@Override
+				public void onResponseGetImageUrlError(Exception e) {
+					Log.d(LOG_TAG, "onResponseGetImageUrlError error: " + e.getMessage());
+
+					activity.runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							holder.progressBarImageLoader.setVisibility(View.GONE);
+						}
+					});
+
+				}
+
+				@Override
+				public void onResponseGetImageUrl(final Bitmap bitmap) {
+					Log.d(LOG_TAG, "onResponseGetImageUrl");
+
+					activity.runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							holder.image.setImageBitmap(bitmap);
+							holder.image.setVisibility(View.VISIBLE);
+							holder.progressBarImageLoader.setVisibility(View.GONE);
+						}
+					});
+				}
+			});
+
+			holder.username.setText(gifPost.getUsername());
 
 		}
 
 		return convertView;
 
-		// View rowView = convertView;
-		// if (rowView == null) {
-		// rowView = layoutInflater.inflate(R.layout.gif_post, null);
-		// ViewHolder viewHolder = new ViewHolder();
-		// viewHolder.title = (TextView)
-		// rowView.findViewById(R.id.textViewGifPostTitle);
-		// viewHolder.image = (ImageView)
-		// rowView.findViewById(R.id.imageViewGifPostTimeLineHeadLogo);
-		// viewHolder.username = (TextView)
-		// rowView.findViewById(R.id.textViewGifPostUsername);
-		// rowView.setTag(viewHolder);
-		// }
-		//
-		// ViewHolder holder = (ViewHolder) rowView.getTag();
-		// GifPost gifPost = gifPosts.get(position);
-		// holder.title.setText(gifPost.getTitle());
-		// // TODO: load image
-		// holder.image.setImageResource(R.drawable.head_logo);
-		// holder.username.setText(comment.replace("%1",
-		// gifPost.getUsername()));
-		//
-		// return rowView;
 	}
 
 }

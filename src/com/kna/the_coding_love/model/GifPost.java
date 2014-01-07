@@ -6,17 +6,27 @@ public class GifPost {
 	private String imageUrl;
 	private String username;
 	private String email;
+	private String gifPostUrl;
 
 	public GifPost() {
 		super();
 	}
 
-	public GifPost(String title, String imageUrl, String username, String email) {
+	public GifPost(String title, String imageUrl, String username, String email, String gifPostUrl) {
 		super();
 		this.title = title;
 		this.imageUrl = imageUrl;
 		this.username = username;
 		this.email = email;
+		this.gifPostUrl = gifPostUrl;
+	}
+	
+	public String getGifPostUrl() {
+		return gifPostUrl;
+	}
+
+	public void setGifPostUrl(String gifPostUrl) {
+		this.gifPostUrl = gifPostUrl;
 	}
 
 	public String getTitle() {

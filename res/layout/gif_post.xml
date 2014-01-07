@@ -10,8 +10,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/list_item_selector"
         android:paddingBottom="@dimen/bottom_padding_gif_post"
-        android:paddingLeft="@dimen/half_general_padding"
-        android:paddingRight="@dimen/half_general_padding"
+        android:paddingLeft="@dimen/left_right_gif_post_padding"
+        android:paddingRight="@dimen/left_right_gif_post_padding"
         android:paddingTop="@dimen/half_general_padding" >
 
         <TextView
@@ -29,13 +29,23 @@
         <ImageView
             android:id="@+id/imageViewGifPostTimeLineHeadLogo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:layout_below="@+id/textViewGifPostTitle"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="12dp"
             android:contentDescription="@string/postimage"
-            android:duplicateParentState="false"
-            android:src="@drawable/head_logo" />
+            android:src="@drawable/gif_post_default" />
+        
+        <ProgressBar
+            android:id="@+id/progressBarImageLoader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/imageViewGifPostTimeLineHeadLogo"
+            android:layout_alignRight="@+id/imageViewGifPostTimeLineHeadLogo"
+            android:layout_alignBottom="@+id/imageViewGifPostTimeLineHeadLogo"
+            android:layout_alignTop="@+id/imageViewGifPostTimeLineHeadLogo"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
 
         <TextView
             android:id="@+id/textViewGifPostUsername"
@@ -48,8 +58,7 @@
             android:layout_marginRight="12dp"
             android:layout_marginTop="12dp"
             android:duplicateParentState="false"
-            android:gravity="center"
-            android:text="@string/_by_1_" />
+            android:gravity="center" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -60,6 +69,7 @@
         android:layout_alignRight="@+id/mirelative"
         android:layout_alignTop="@+id/mirelative"
         android:background="@drawable/list_item_selector_transparent" >
+
     </RelativeLayout>
 
 </RelativeLayout>
