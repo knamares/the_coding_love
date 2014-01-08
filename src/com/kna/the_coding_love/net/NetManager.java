@@ -1,6 +1,9 @@
 package com.kna.the_coding_love.net;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,6 +11,7 @@ import android.graphics.Bitmap.Config;
 import android.util.Log;
 
 import com.android.volley.Request.Method;
+import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
@@ -82,7 +86,22 @@ public class NetManager {
 
 	private void getStringRequest(String url, Listener<String> listener, ErrorListener errorListener) {
 		Log.d(LOG_TAG, "getStringRequest");
-		StringRequest stringRequest = new StringRequest(Method.GET, url, listener, errorListener);
+		StringRequest stringRequest = new StringRequest(Method.GET, url, listener, errorListener){
+			@Override
+			public Map<String, String> getHeaders() throws AuthFailureError {
+				Map<String, String> headers = super.getHeaders();
+				
+				if (headers == null
+			            || headers.equals(Collections.emptyMap())) {
+			        headers = new HashMap<String, String>();
+			    }
+				
+				headers.put("User-agent", "Chrome");
+				
+				return headers;
+			}
+		};
+		
 		queue.add(stringRequest);
 	}
 
@@ -112,7 +131,21 @@ public class NetManager {
 			}
 		};
 
-		ImageRequest imageRequest = new ImageRequest(url, listener, 0, 0, Config.ARGB_8888, errorListener);
+		ImageRequest imageRequest = new ImageRequest(url, listener, 0, 0, Config.ARGB_8888, errorListener){
+			@Override
+			public Map<String, String> getHeaders() throws AuthFailureError {
+				Map<String, String> headers = super.getHeaders();
+				
+				if (headers == null
+			            || headers.equals(Collections.emptyMap())) {
+			        headers = new HashMap<String, String>();
+			    }
+				
+				headers.put("User-agent", "Chrome");
+				
+				return headers;
+			}
+		};
 
 		queue.add(imageRequest);
 

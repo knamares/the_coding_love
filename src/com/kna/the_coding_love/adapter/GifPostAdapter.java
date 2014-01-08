@@ -4,19 +4,20 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.util.Log;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebSettings.LayoutAlgorithm;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kna.the_coding_love.R;
-import com.kna.the_coding_love.interfaze.OnResponseGetImageUrl;
 import com.kna.the_coding_love.model.GifPost;
-import com.kna.the_coding_love.net.NetManager;
 
 public class GifPostAdapter extends ArrayAdapter<GifPost> {
 
@@ -33,7 +34,7 @@ public class GifPostAdapter extends ArrayAdapter<GifPost> {
 
 	static class ViewHolder {
 		public TextView title;
-		public ImageView image;
+		public WebView image;
 		public TextView username;
 		public ProgressBar progressBarImageLoader;
 	}
@@ -63,48 +64,75 @@ public class GifPostAdapter extends ArrayAdapter<GifPost> {
 
 				convertView = layoutInflater.inflate(R.layout.gif_post, null);
 				holder.title = (TextView) convertView.findViewById(R.id.textViewGifPostTitle);
-				holder.image = (ImageView) convertView.findViewById(R.id.imageViewGifPostTimeLineHeadLogo);
+				holder.image = (WebView) convertView.findViewById(R.id.imageViewGifPostTimeLineHeadLogo);
+
 				holder.username = (TextView) convertView.findViewById(R.id.textViewGifPostUsername);
 				holder.progressBarImageLoader = (ProgressBar) convertView.findViewById(R.id.progressBarImageLoader);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
+
 			GifPost gifPost = gifPosts.get(position);
 			holder.title.setText(gifPost.getTitle());
 			holder.progressBarImageLoader.setVisibility(View.VISIBLE);
-			holder.image.setImageDrawable(getContext().getResources().getDrawable(R.drawable.gif_post_default));
-			
-			// Load image
-			NetManager.getInstance(activity).getImageFromUrl(gifPost.getImageUrl(), new OnResponseGetImageUrl() {
 
+			// // Load image
+			// NetManager.getInstance(activity).getImageFromUrl(gifPost.getImageUrl(),
+			// new OnResponseGetImageUrl() {
+			//
+			// @Override
+			// public void onResponseGetImageUrlError(Exception e) {
+			// Log.d(LOG_TAG, "onResponseGetImageUrlError error: " +
+			// e.getMessage());
+			//
+			// activity.runOnUiThread(new Runnable() {
+			// @Override
+			// public void run() {
+			// holder.progressBarImageLoader.setVisibility(View.GONE);
+			// }
+			// });
+			//
+			// }
+			//
+			// @Override
+			// public void onResponseGetImageUrl(final Bitmap bitmap) {
+			// Log.d(LOG_TAG, "onResponseGetImageUrl");
+			//
+			// activity.runOnUiThread(new Runnable() {
+			// @Override
+			// public void run() {
+			// holder.progressBarImageLoader.setVisibility(View.GONE);
+			// }
+			// });
+			// }
+			// });
+
+			holder.image.getSettings().setUserAgentString("Chrome");
+			holder.image.loadUrl(gifPost.getImageUrl());
+			holder.image.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
+			holder.image.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+			holder.image.setHorizontalScrollBarEnabled(false);
+			holder.image.setVerticalScrollBarEnabled(false);
+			holder.image.getSettings().setJavaScriptEnabled(true);
+			holder.image.loadUrl("javascript:alert('Yeah')");
+		
+			holder.image.setWebViewClient(new WebViewClient() {
 				@Override
-				public void onResponseGetImageUrlError(Exception e) {
-					Log.d(LOG_TAG, "onResponseGetImageUrlError error: " + e.getMessage());
-
-					activity.runOnUiThread(new Runnable() {
-						@Override
-						public void run() {
-							holder.progressBarImageLoader.setVisibility(View.GONE);
-						}
-					});
-
+				public void onPageFinished(WebView view, String url) {
+					
+					holder.progressBarImageLoader.setVisibility(View.GONE);
+					holder.image.setVisibility(View.VISIBLE);
+					
 				}
-
+				
 				@Override
-				public void onResponseGetImageUrl(final Bitmap bitmap) {
-					Log.d(LOG_TAG, "onResponseGetImageUrl");
-
-					activity.runOnUiThread(new Runnable() {
-						@Override
-						public void run() {
-							holder.image.setImageBitmap(bitmap);
-							holder.image.setVisibility(View.VISIBLE);
-							holder.progressBarImageLoader.setVisibility(View.GONE);
-						}
-					});
+				public void onPageStarted(WebView view, String url, Bitmap favicon) {
+					holder.progressBarImageLoader.setVisibility(View.VISIBLE);
+//					holder.image.setVisibility(View.GONE);
 				}
-			});
+					
+				});
 
 			holder.username.setText(gifPost.getUsername());
 

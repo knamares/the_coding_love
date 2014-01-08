@@ -26,24 +26,19 @@
             android:gravity="center"
             android:text="" />
 
-        <ImageView
+        <WebView
             android:id="@+id/imageViewGifPostTimeLineHeadLogo"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/textViewGifPostTitle"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="12dp"
-            android:contentDescription="@string/postimage"
-            android:src="@drawable/gif_post_default" />
-        
+            android:layout_centerVertical="true"
+            android:layout_marginTop="12dp" />
+
         <ProgressBar
             android:id="@+id/progressBarImageLoader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/imageViewGifPostTimeLineHeadLogo"
-            android:layout_alignRight="@+id/imageViewGifPostTimeLineHeadLogo"
-            android:layout_alignBottom="@+id/imageViewGifPostTimeLineHeadLogo"
-            android:layout_alignTop="@+id/imageViewGifPostTimeLineHeadLogo"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true" />
 
@@ -69,7 +64,6 @@
         android:layout_alignRight="@+id/mirelative"
         android:layout_alignTop="@+id/mirelative"
         android:background="@drawable/list_item_selector_transparent" >
-
     </RelativeLayout>
 
 </RelativeLayout>
